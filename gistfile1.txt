@@ -1,0 +1,32 @@
+#include "mbed.h"
+
+DigitalOut led1(PA_5);
+DigitalOut led2(LED2);
+
+//WIFI, LED2, LED1
+BusOut leds(PC_9, PB_14, PA_5);
+
+DigitalIn buttn(PC_13);
+
+int main()
+{
+    printf("This is the bare metal blinky example running on Mbed OS %d.%d.%d. \r\n\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
+
+    while(1){
+        for(int i=0; i<8; i++ ){
+            leds = i;
+            ThisThread::sleep_for(1s);
+        }
+    }
+    while (true){
+        if(buttn == 1){ //when not pressed - pull-up resistor
+            led1 = 1;   // LED is on
+            led2 = 1;   // LED is on
+        }else{          // when pressed - ground
+            led1 = 0;
+            led2 = 0;
+        }
+        
+
+    }
+}
